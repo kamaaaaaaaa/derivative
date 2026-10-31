@@ -1,0 +1,602 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Производная в физике — на примере автомобиля</title>
+<link rel="stylesheet" href="vendor/katex/katex.min.css">
+<link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="illustrations.css">
+<script defer src="vendor/katex/katex.min.js"></script>
+<script defer src="vendor/katex/contrib/auto-render.min.js"></script>
+<script defer src="script.js"></script>
+<script defer src="illustrations.js"></script>
+</head>
+<body>
+
+<div class="stage" id="stage">
+<main class="deck" id="deck" data-dir="fwd" aria-roledescription="презентация">
+
+<!-- ============ 1. Титул ============ -->
+<section class="slide slide-title" id="s-1" data-n="1" data-tag="Математический анализ" aria-label="Слайд 1">
+  <div class="title-text">
+    <p class="kicker reveal"><span class="k-num">//01</span><span class="k-label">Математический анализ</span></p>
+    <h1 class="reveal">Производная<br>в физике</h1>
+    <p class="subtitle reveal">Как матанализ помогает автомобилю <span class="mark">остановиться вовремя</span></p>
+    <div class="authors reveal">
+      <span class="authors-label">Авторы</span>
+      <ul class="authors-list">
+        <li>Икрамхужаева Диёра</li>
+        <li>Шертаева Камилла</li>
+        <li>Жуман Дамир</li>
+        <li>Акылбаев Карим</li>
+        <li>Талгат</li>
+      </ul>
+    </div>
+  </div>
+
+  <svg class="title-graph" viewBox="0 0 900 640" width="900" height="640" aria-hidden="true">
+    <g class="tg-grid">
+      <path d="M210 100 V580 M360 100 V580 M510 100 V580 M660 100 V580 M810 100 V580 M60 460 H870 M60 340 H870 M60 220 H870 M60 100 H870"/>
+    </g>
+    <g class="tg-ticks">
+      <line x1="60" y1="580" x2="60" y2="590"/><line x1="210" y1="580" x2="210" y2="590"/>
+      <line x1="360" y1="580" x2="360" y2="590"/><line x1="510" y1="580" x2="510" y2="590"/>
+      <line x1="660" y1="580" x2="660" y2="590"/><line x1="810" y1="580" x2="810" y2="590"/>
+      <line x1="50" y1="340" x2="60" y2="340"/><line x1="50" y1="100" x2="60" y2="100"/>
+    </g>
+    <g class="tg-labels">
+      <text x="60" y="620" text-anchor="middle">0</text>
+      <text x="210" y="620" text-anchor="middle">1</text>
+      <text x="360" y="620" text-anchor="middle">2</text>
+      <text x="510" y="620" text-anchor="middle">3</text>
+      <text x="660" y="620" text-anchor="middle">4</text>
+      <text x="40" y="107" text-anchor="end">40</text>
+      <text x="40" y="347" text-anchor="end">20</text>
+    </g>
+    <path class="tg-axis" d="M60 600 V40 M40 580 H870"/>
+    <path class="tg-axis" d="M53 54 L60 38 L67 54 M856 573 L872 580 L856 587"/>
+    <text class="tg-axname" x="80" y="52">s, м</text>
+    <text class="tg-axname" x="862" y="622" text-anchor="end">t, с</text>
+
+    <path class="tg-guide" d="M660 100 V580"/>
+    <path class="tg-curve-tail" d="M660 100 Q765 100 870 158.8"/>
+    <path class="tg-curve" pathLength="1" d="M60 580 Q360 100 660 100"/>
+
+    <path class="tg-tangent" pathLength="1" d="M90 503.2 L440 111.2"/>
+    <path class="tg-flat" pathLength="1" d="M540 100 H780"/>
+
+    <circle class="tg-dot tg-dot-1" cx="240" cy="335.2" r="9"/>
+    <circle class="tg-dot tg-dot-2" cx="660" cy="100" r="10"/>
+
+    <text class="tg-note tg-note-1" x="300" y="374">tg α = s′(t₀)</text>
+    <text class="tg-note tg-note-2" x="660" y="72" text-anchor="middle">s′ = 0 — стоп</text>
+    <text class="tg-fn" x="250" y="252">s(t)</text>
+  </svg>
+
+  <aside class="notes">
+    <p class="notes-speaker"><b>Говорит: Икрамхужаева Диёра</b></p><p>Здравствуйте! Наша команда: Диёра, Камилла, Дамир, Карим и Талгат. Тема нашей презентации — «Производная в физике».</p><p>Мы покажем, что производная — это не абстрактная формула из учебника. На примере обычного автомобиля разберём, как матанализ помогает рассчитать торможение, работает внутри систем безопасности и даже отвечает за комфорт пассажиров.</p><p>Справа вы видите график пути машины при торможении. К концу презентации вы будете понимать каждую его деталь.</p>
+  </aside>
+</section>
+
+<!-- ============ 2. Предел ============ -->
+<section class="slide layout-split" id="s-2" data-n="2" aria-label="Слайд 2">
+  <header class="slide-head">
+    <p class="kicker reveal"><span class="k-num">//02</span><span class="k-label">Предел</span></p>
+    <h2 class="reveal">Средняя скорость и переход к пределу</h2>
+  </header>
+  <div class="split">
+    <div class="col-text">
+      <div class="formula-row reveal">
+        <span class="formula-cap">Школьная формула</span>
+        <span class="formula-inline">\(v_{\text{ср}} = \dfrac{\Delta s}{\Delta t}\)</span>
+      </div>
+      <ol class="points ladder">
+        <li class="reveal">Не видит динамики внутри \(\Delta t\): разгонов, остановок, рывков</li>
+        <li class="reveal">ABS и расчётам нужна <span class="mark">мгновенная скорость</span> — в момент \(t_0\)</li>
+        <li class="reveal">Устремляем \(\Delta t \to 0\) — теория пределов</li>
+      </ol>
+      <figure class="formula formula-key reveal">
+        <figcaption>Мгновенная скорость = производная пути</figcaption>
+        \[v(t_0)=\lim_{\Delta t\to 0}\frac{\Delta s}{\Delta t}=s'(t_0)\]
+      </figure>
+    </div>
+    <div class="illu" id="illu-2"></div>
+  </div>
+  <aside class="notes">
+    <p class="notes-speaker"><b>Говорит: Икрамхужаева Диёра</b></p><p>Начнём со знакомой школьной формулы: средняя скорость равна пройденному пути, делённому на время, то есть дельта эс на дельта тэ.</p><p>Проблема в том, что она усредняет всё. Машина могла разгоняться, тормозить, стоять на светофоре, а формула выдаст одно среднее число.</p><p>Для инженеров, например для системы ABS, этого мало. Им нужна мгновенная скорость — скорость в конкретный момент тэ-ноль.</p><p>Как её получить? Мы берём всё меньший и меньший промежуток времени и устремляем дельта тэ к нулю. На графике видно, как секущая поворачивается и превращается в касательную.</p><p>Предел этого отношения и есть мгновенная скорость. А по определению это производная функции пути: вэ от тэ-ноль равно эс штрих от тэ-ноль.</p>
+  </aside>
+</section>
+
+<!-- ============ 3. Иерархия ============ -->
+<section class="slide layout-stack" id="s-3" data-n="3" aria-label="Слайд 3">
+  <header class="slide-head">
+    <p class="kicker reveal"><span class="k-num">//03</span><span class="k-label">Иерархия производных</span></p>
+    <h2 class="reveal">Иерархия производных в механике</h2>
+    <p class="lead reveal">Величины связаны одной операцией — <span class="mark">производной по времени</span> \(t\)</p>
+  </header>
+  <div class="deriv-row">
+    <article class="step-card reveal">
+      <span class="sc-num">01</span>
+      <h3 class="sc-title">Первая производная — скорость</h3>
+      <div class="sc-formula">\[v(t)=s'(t)=\frac{ds}{dt}\]</div>
+      <p>Интенсивность изменения координаты: сколько метров за бесконечно малую долю секунды</p>
+    </article>
+    <article class="step-card reveal">
+      <span class="sc-num">02</span>
+      <h3 class="sc-title">Вторая производная — ускорение</h3>
+      <div class="sc-formula">\[a(t)=v'(t)=s''(t)=\frac{d^2s}{dt^2}\]</div>
+      <p>Скорость изменения скорости: \(a&gt;0\) — разгон, \(a&lt;0\) — замедление</p>
+    </article>
+    <aside class="teaser reveal">
+      <span class="sc-num">03</span>
+      <h3>Третья производная</h3>
+      <p class="teaser-sym">\(j(t)\) — рывок</p>
+      <p>подробнее — слайд&nbsp;9</p>
+    </aside>
+  </div>
+  <div class="illu" id="illu-3"></div>
+  <aside class="notes">
+    <p class="notes-speaker"><b>Говорит: Икрамхужаева Диёра</b></p><p>Производная связывает между собой все основные величины механики. Каждая следующая — это производная предыдущей по времени.</p><p>Первая производная пути — скорость, вэ равно дэ эс по дэ тэ. Она показывает, сколько метров машина проходит за бесконечно малую долю секунды.</p><p>Вторая производная пути — ускорение, то есть скорость изменения самой скорости. Его знак говорит о характере движения: если а больше нуля, машина разгоняется, если меньше — тормозит.</p><p>Есть и третья производная — рывок. О нём подробнее расскажет Дамир чуть позже.</p><p>А сейчас я передаю слово Камилле, она покажет, как всё это работает на реальной задаче.</p>
+  </aside>
+</section>
+
+<!-- ============ 4. Модель ============ -->
+<section class="slide layout-split" id="s-4" data-n="4" data-tag="Задача №1" aria-label="Слайд 4">
+  <header class="slide-head">
+    <p class="kicker reveal"><span class="k-num">//04</span><span class="k-label">Модель</span></p>
+    <h2 class="reveal">Математическая модель торможения</h2>
+  </header>
+  <div class="split">
+    <div class="col-text">
+      <p class="lead-strong reveal">Экстренное торможение: сила трения постоянна — машина <span class="mark">замедляется равномерно</span></p>
+      <figure class="formula formula-key reveal">
+        <figcaption>Путь с момента нажатия на тормоз</figcaption>
+        \[s(t)=v_0t-\frac{at^2}{2}\]
+      </figure>
+      <dl class="legend reveal">
+        <div><dt>\(v_0\)</dt><dd>начальная скорость (при \(t=0\))</dd></div>
+        <div><dt>\(a\)</dt><dd>постоянное замедление</dd></div>
+      </dl>
+      <div class="goal reveal">
+        <p class="goal-cap">Цель — найти с помощью производной</p>
+        <ul>
+          <li><span class="sym">\(t_{\text{ост}}\)</span> время до остановки</li>
+          <li><span class="sym">\(S_{\text{торм}}\)</span> полный тормозной путь</li>
+        </ul>
+      </div>
+      <p class="example reveal">Пример: v₀ = 20 м/с (72 км/ч), a = 5 м/с²</p>
+    </div>
+    <div class="illu" id="illu-4"></div>
+  </div>
+  <aside class="notes">
+    <p class="notes-speaker"><b>Говорит: Шертаева Камилла</b></p><p>Спасибо, Диёра. Рассмотрим прикладную задачу. Автомобиль едет по трассе, и водитель резко нажимает на тормоз.</p><p>Сила трения постоянна, поэтому машина замедляется равномерно. Путь с момента нажатия на тормоз описывается квадратичной функцией: эс от тэ равно вэ-ноль тэ минус а тэ квадрат пополам.</p><p>Здесь вэ-ноль — начальная скорость, а — постоянное замедление.</p><p>Наша цель — с помощью производной точно найти две вещи: через сколько секунд машина остановится и какой путь она пройдёт до остановки. Для наглядности возьмём скорость 72 километра в час и замедление 5 метров в секунду за секунду.</p>
+  </aside>
+</section>
+
+<!-- ============ 5. Расчёт ============ -->
+<section class="slide layout-split" id="s-5" data-n="5" data-tag="Задача №1" aria-label="Слайд 5">
+  <header class="slide-head">
+    <p class="kicker reveal"><span class="k-num">//05</span><span class="k-label">Решение</span></p>
+    <h2 class="reveal">Расчёт параметров остановки</h2>
+  </header>
+  <div class="split">
+    <ol class="steps col-text">
+      <li class="step-card" data-step="1">
+        <span class="sc-num">01</span>
+        <h3 class="sc-title">Скорость — первая производная пути</h3>
+        <div class="sc-formula">\[v(t)=s'(t)=\left(v_0t-\frac{at^2}{2}\right)'=v_0-at\]</div>
+      </li>
+      <li class="step-card" data-step="2">
+        <span class="sc-num">02</span>
+        <h3 class="sc-title">Остановка: скорость равна нулю</h3>
+        <div class="sc-formula">\[v_0-at_{\text{ост}}=0\implies t_{\text{ост}}=\frac{v_0}{a}\]</div>
+      </li>
+      <li class="step-card" data-step="3">
+        <span class="sc-num">03</span>
+        <h3 class="sc-title">Подставляем \(t_{\text{ост}}\) в функцию пути</h3>
+        <div class="sc-formula">\[S_{\text{торм}}=s(t_{\text{ост}})=v_0\!\left(\frac{v_0}{a}\right)-\frac{a}{2}\left(\frac{v_0}{a}\right)^2=\frac{v_0^2}{2a}\]</div>
+      </li>
+      <li class="step-result" data-step="4">
+        <p class="result-main">Тормозной путь <span class="mark">пропорционален \(v_0^2\)</span></p>
+        <p class="result-sub">скорость ×2 &nbsp;⟶&nbsp; тормозной путь ×4</p>
+      </li>
+    </ol>
+    <div class="illu" id="illu-5"></div>
+  </div>
+  <aside class="notes">
+    <p class="notes-speaker"><b>Говорит: Шертаева Камилла</b></p><p>Решаем в три шага.</p><p>Первый шаг: находим скорость как первую производную пути. Производная от вэ-ноль тэ — это вэ-ноль, производная от а тэ квадрат пополам — это а тэ. Получаем вэ равно вэ-ноль минус а тэ.</p><p>Второй шаг: машина остановилась, значит, её скорость равна нулю. Приравниваем производную к нулю и получаем время остановки: тэ равно вэ-ноль, делённое на а.</p><p>Третий шаг: подставляем это время в функцию пути. После упрощения выходит, что тормозной путь равен вэ-ноль в квадрате, делённому на два а.</p><p>Главный вывод: тормозной путь зависит от квадрата скорости. Если ехать в два раза быстрее, тормозить придётся в четыре раза дольше — 160 метров вместо 40. Это видно на полосках справа.</p>
+  </aside>
+</section>
+
+<!-- ============ 6. Геометрия ============ -->
+<section class="slide layout-split" id="s-6" data-n="6" aria-label="Слайд 6">
+  <header class="slide-head">
+    <p class="kicker reveal"><span class="k-num">//06</span><span class="k-label">Геометрия</span></p>
+    <h2 class="reveal">Геометрическая интерпретация</h2>
+  </header>
+  <div class="split">
+    <div class="col-text">
+      <figure class="formula formula-key reveal">
+        <figcaption>Угловой коэффициент касательной</figcaption>
+        \[k=s'(t)=\operatorname{tg}\alpha\]
+      </figure>
+      <ol class="points ladder">
+        <li class="reveal">График \(s(t)\) при торможении — парабола ветвями вниз</li>
+        <li class="reveal">Остановка — её вершина, локальный максимум</li>
+        <li class="reveal">Касательная горизонтальна: \(\alpha=0^\circ\), \(\operatorname{tg}0^\circ=0\)</li>
+      </ol>
+      <p class="conclusion reveal"><span class="mark">\(s'(t)=0\)</span> — остановка доказана и физически, и геометрически</p>
+    </div>
+    <div class="illu" id="illu-6"></div>
+  </div>
+  <aside class="notes">
+    <p class="notes-speaker"><b>Говорит: Шертаева Камилла</b></p><p>Этот же результат можно увидеть геометрически. Производная — это угловой коэффициент касательной, то есть тангенс угла её наклона.</p><p>График пути при торможении — парабола, ветви которой направлены вниз. Посмотрите, как касательная бежит по графику: чем ближе к остановке, тем меньше её наклон.</p><p>В вершине параболы касательная становится горизонтальной. Угол наклона равен нулю градусов, тангенс нуля равен нулю, значит и производная равна нулю.</p><p>Получается, что остановку машины мы доказали двумя способами: физически, через скорость, и геометрически, через касательную.</p><p>Теперь Дамир расскажет, где эти расчёты применяются в реальных автомобилях.</p>
+  </aside>
+</section>
+
+<!-- ============ 7. Безопасность ============ -->
+<section class="slide layout-stack" id="s-7" data-n="7" aria-label="Слайд 7">
+  <header class="slide-head">
+    <p class="kicker reveal"><span class="k-num">//07</span><span class="k-label">Безопасность</span></p>
+    <h2 class="reveal">Производные в системах безопасности</h2>
+  </header>
+  <div class="twin">
+    <article class="twin-col reveal">
+      <h3><span class="tw-num">01</span>Системы ABS и ESP</h3>
+      <ul class="points">
+        <li>Датчики считывают угол поворота колеса</li>
+        <li>Компьютер считает 1-ю производную (скорость вращения) и 2-ю (ускорение колеса)</li>
+        <li>2-я производная <span class="mark">резко ушла в минус</span> — блокировка: давление сбрасывается</li>
+      </ul>
+      <div class="illu" id="illu-7-abs"></div>
+    </article>
+    <article class="twin-col reveal">
+      <h3><span class="tw-num">02</span>Автотехническая экспертиза</h3>
+      <ul class="points">
+        <li>Формулу тормозного пути применяют <span class="mark">в обратную сторону</span></li>
+        <li>Длина следа \(S\) на асфальте — скорость \(v_0\) до аварии</li>
+      </ul>
+      <figure class="formula formula-compact">
+        <figcaption>Из \(S=v_0^2/(2a)\)</figcaption>
+        \[v_0=\sqrt{2aS}\]
+      </figure>
+      <div class="illu" id="illu-7-exp"></div>
+    </article>
+  </div>
+  <aside class="notes">
+    <p class="notes-speaker"><b>Говорит: Жуман Дамир</b></p><p>Спасибо, Камилла. Производные работают прямо сейчас, в реальном времени, внутри современных машин.</p><p>Первый пример — системы ABS и ESP. Датчики постоянно измеряют угол поворота колеса. Бортовой компьютер считает первую производную — скорость вращения — и вторую — ускорение колеса.</p><p>Если вторая производная резко уходит в минус, значит, колесо вот-вот заблокируется и машина пойдёт юзом. Электроника мгновенно сбрасывает давление в тормозах, и колесо снова вращается.</p><p>Второй пример — автотехническая экспертиза после аварии. Эксперты берут формулу тормозного пути, которую вывела Камилла, и используют её в обратную сторону. Измерив длину тормозного следа на асфальте, они находят скорость машины до аварии: вэ-ноль равно корню из два а эс.</p>
+  </aside>
+</section>
+
+<!-- ============ 8. Аэродинамика ============ -->
+<section class="slide layout-split" id="s-8" data-n="8" aria-label="Слайд 8">
+  <header class="slide-head">
+    <p class="kicker reveal"><span class="k-num">//08</span><span class="k-label">Аэродинамика</span></p>
+    <h2 class="reveal">Производная в аэродинамике</h2>
+  </header>
+  <div class="split">
+    <div class="col-text col-dense">
+      <figure class="formula formula-pair reveal">
+        <figcaption>Сила и мощность сопротивления</figcaption>
+        \[F_{\text{сопр}}=\frac{1}{2}C_x\rho Sv^2\]
+        \[P_{\text{сопр}}=F_{\text{сопр}}\cdot v=\frac{1}{2}C_x\rho Sv^3\]
+      </figure>
+      <dl class="legend reveal">
+        <div><dt>\(C_x\)</dt><dd>коэффициент лобового сопротивления</dd></div>
+        <div><dt>\(\rho\)</dt><dd>плотность воздуха</dd></div>
+        <div><dt>\(S\)</dt><dd>площадь миделева сечения</dd></div>
+        <div><dt>\(v\)</dt><dd>мгновенная скорость</dd></div>
+      </dl>
+      <figure class="formula formula-key reveal">
+        <figcaption>Производная мощности — растёт как \(v^2\)</figcaption>
+        \[\frac{dP}{dv}=\frac{3}{2}C_x\rho Sv^2\]
+      </figure>
+      <p class="conclusion reveal">Скорость ×2 — <span class="mark">мощность двигателя ×8</span></p>
+    </div>
+    <div class="illu" id="illu-8"></div>
+  </div>
+  <aside class="notes">
+    <p class="notes-speaker"><b>Говорит: Жуман Дамир</b></p><p>Следующая область — аэродинамика. На высокой скорости главным врагом машины становится воздух.</p><p>Сила сопротивления воздуха растёт пропорционально квадрату скорости. Здесь цэ-икс — коэффициент лобового сопротивления, ро — плотность воздуха, эс — площадь поперечного сечения машины.</p><p>Мощность, которую двигатель тратит на борьбу с воздухом, — это сила, умноженная на скорость. Значит, она растёт уже как куб скорости.</p><p>Если взять производную мощности по скорости, получим, что каждый следующий километр в час обходится всё дороже, и рост идёт пропорционально квадрату скорости.</p><p>Отсюда важный инженерный факт: чтобы поднять максимальную скорость в два раза, мощность двигателя нужно увеличить в восемь раз. Поэтому инженеры так тщательно рассчитывают форму кузова ещё на компьютере.</p>
+  </aside>
+</section>
+
+<!-- ============ 9. Рывок ============ -->
+<section class="slide layout-split" id="s-9" data-n="9" aria-label="Слайд 9">
+  <header class="slide-head">
+    <p class="kicker reveal"><span class="k-num">//09</span><span class="k-label">Рывок</span></p>
+    <h2 class="reveal">Третья производная и плавность хода</h2>
+  </header>
+  <div class="split">
+    <div class="col-text">
+      <p class="lead-strong reveal">Подвеске и комфорту мало \(v\) и \(a\): нужен <span class="mark">рывок (jerk)</span> — скорость изменения ускорения</p>
+      <figure class="formula formula-key reveal">
+        <figcaption>Рывок</figcaption>
+        \[j(t)=a'(t)=s'''(t)=\frac{d^3s}{dt^3}\]
+      </figure>
+      <ol class="points ladder">
+        <li class="reveal">Резкий тормоз: ускорение меняется мгновенно, \(j\to\infty\)</li>
+        <li class="reveal">Рывок решает, как машина «кивает» носом и что чувствуют шея и позвоночник</li>
+        <li class="reveal">Круиз-контроль держит \(j(t)\) ниже порога, обычно до 2&nbsp;м/с³</li>
+      </ol>
+    </div>
+    <div class="illu" id="illu-9"></div>
+  </div>
+  <aside class="notes">
+    <p class="notes-speaker"><b>Говорит: Жуман Дамир</b></p><p>И последнее применение — третья производная, рывок. По-английски — jerk.</p><p>Рывок — это скорость изменения ускорения. Это производная ускорения, или третья производная пути по времени.</p><p>Когда водитель резко бьёт по тормозам, ускорение меняется почти мгновенно, и рывок становится огромным. Именно он отвечает за то, как машина «кивает» носом и какую нагрузку получают шея и позвоночник пассажиров.</p><p>Поэтому адаптивный круиз-контроль тормозит плавно: он следит, чтобы рывок не превышал примерно 2 метров в секунду в кубе. На графике видно разницу между резким и плавным торможением.</p><p>Передаю слово Кариму, он подведёт итоги.</p>
+  </aside>
+</section>
+
+<!-- ============ 10. Выводы ============ -->
+<section class="slide slide-final" id="s-10" data-n="10" aria-label="Слайд 10">
+  <header class="slide-head">
+    <p class="kicker reveal"><span class="k-num">//10</span><span class="k-label">Итог</span></p>
+    <h2 class="reveal">Выводы</h2>
+  </header>
+
+  <ol class="chain">
+    <li class="link q-s reveal"><span class="link-sym">s</span><span class="link-name">путь</span><span class="link-f">\(s(t)\)</span></li>
+    <li class="arrow reveal" aria-hidden="true"><span>d/dt</span></li>
+    <li class="link q-v reveal"><span class="link-sym">v</span><span class="link-name">скорость</span><span class="link-f">\(v=s'\)</span></li>
+    <li class="arrow reveal" aria-hidden="true"><span>d/dt</span></li>
+    <li class="link q-a reveal"><span class="link-sym">a</span><span class="link-name">ускорение</span><span class="link-f">\(a=s''\)</span></li>
+    <li class="arrow reveal" aria-hidden="true"><span>d/dt</span></li>
+    <li class="link q-j reveal"><span class="link-sym">j</span><span class="link-name">рывок</span><span class="link-f">\(j=s'''\)</span></li>
+  </ol>
+
+  <div class="sum-row">
+    <figure class="formula formula-key reveal">
+      <figcaption>Производная = мгновенная скорость изменения</figcaption>
+      \[f'(t)=\lim_{\Delta t\to 0}\frac{\Delta f}{\Delta t}\]
+    </figure>
+    <p class="sum-text reveal">Одна идея — четыре величины: каждая следующая есть <span class="mark">производная предыдущей по времени</span>. Так матанализ описывает движение автомобиля в любой момент</p>
+  </div>
+
+  <ul class="uses">
+    <li class="step-card reveal"><span class="sc-num">01</span><h3 class="sc-title">Тормозной путь</h3><p>\(S=v_0^2/(2a)\): скорость ×2 — путь ×4</p></li>
+    <li class="step-card reveal"><span class="sc-num">02</span><h3 class="sc-title">ABS и экспертиза</h3><p>2-я производная колеса; \(v_0=\sqrt{2aS}\)</p></li>
+    <li class="step-card reveal"><span class="sc-num">03</span><h3 class="sc-title">Аэродинамика</h3><p>\(P\sim v^3\): скорость ×2 — мощность ×8</p></li>
+    <li class="step-card reveal"><span class="sc-num">04</span><h3 class="sc-title">Комфорт</h3><p>круиз-контроль держит \(j\) до 2&nbsp;м/с³</p></li>
+  </ul>
+
+  <aside class="notes">
+    <p class="notes-speaker"><b>Говорит: Акылбаев Карим</b></p><p>Спасибо, Дамир. Давайте соберём всё вместе.</p><p>Путь, скорость, ускорение и рывок — это одна цепочка. Каждая следующая величина — производная предыдущей по времени. А сама производная — это мгновенная скорость изменения любой величины.</p><p>Мы увидели четыре применения. Тормозной путь растёт как квадрат скорости. ABS следит за второй производной вращения колеса, а эксперты по следу восстанавливают скорость. Мощность сопротивления воздуха растёт как куб скорости. А рывок ограничивают ради комфорта и безопасности.</p>
+  </aside>
+</section>
+
+<!-- ============ 11. Проверь себя ============ -->
+<section class="slide slide-quiz" id="s-11" data-n="11" aria-label="Слайд 11">
+  <header class="slide-head">
+    <p class="kicker reveal"><span class="k-num">//11</span><span class="k-label">Вопросы</span></p>
+    <h2 class="reveal">Проверь себя: 5 вопросов</h2>
+  </header>
+  <div class="quiz">
+    <button class="qcard reveal" type="button" aria-expanded="false" data-q="1">
+      <span class="q-inner">
+        <span class="q-face q-front"><span class="q-num">//01</span><span class="q-text">Чем мгновенная скорость отличается от средней и как её найти?</span></span>
+        <span class="q-face q-back"><span class="q-num">//01</span><span class="q-text">Средняя \(v_{\text{ср}}=\dfrac{\Delta s}{\Delta t}\) усредняет весь промежуток; мгновенная — предел при \(\Delta t\to 0\): \(v(t_0)=\lim\limits_{\Delta t\to0}\dfrac{\Delta s}{\Delta t}=s'(t_0)\)</span></span>
+      </span>
+    </button>
+    <button class="qcard reveal" type="button" aria-expanded="false" data-q="2">
+      <span class="q-inner">
+        <span class="q-face q-front"><span class="q-num">//02</span><span class="q-text">Какой физический смысл у второй производной пути по времени?</span></span>
+        <span class="q-face q-back"><span class="q-num">//02</span><span class="q-text">Это ускорение \(a(t)=s''(t)\). При \(a&gt;0\) — разгон, при \(a&lt;0\) — замедление</span></span>
+      </span>
+    </button>
+    <button class="qcard reveal" type="button" aria-expanded="false" data-q="3">
+      <span class="q-inner">
+        <span class="q-face q-front"><span class="q-num">//03</span><span class="q-text">Почему в момент остановки касательная к графику \(s(t)\) горизонтальна?</span></span>
+        <span class="q-face q-back"><span class="q-num">//03</span><span class="q-text">Скорость равна нулю: \(s'(t_{\text{ост}})=0=\operatorname{tg}\alpha\), значит \(\alpha=0^\circ\); это вершина параболы</span></span>
+      </span>
+    </button>
+    <button class="qcard reveal" type="button" aria-expanded="false" data-q="4">
+      <span class="q-inner">
+        <span class="q-face q-front"><span class="q-num">//04</span><span class="q-text">Во сколько раз вырастет тормозной путь, если скорость увеличить в 3 раза?</span></span>
+        <span class="q-face q-back"><span class="q-num">//04</span><span class="q-text">В 9 раз, потому что \(S_{\text{торм}}=\dfrac{v_0^2}{2a}\sim v_0^2\)</span></span>
+      </span>
+    </button>
+    <button class="qcard reveal" type="button" aria-expanded="false" data-q="5">
+      <span class="q-inner">
+        <span class="q-face q-front"><span class="q-num">//05</span><span class="q-text">Что такое рывок и зачем его ограничивают?</span></span>
+        <span class="q-face q-back"><span class="q-num">//05</span><span class="q-text">\(j=a'(t)=s'''(t)\) — скорость изменения ускорения. Его держат до ~2&nbsp;м/с³ ради комфорта и безопасности пассажиров</span></span>
+      </span>
+    </button>
+  </div>
+  <p class="quiz-hint reveal">Нажмите на вопрос, чтобы увидеть ответ (или клавиши 1–5)</p>
+  <aside class="notes">
+    <p class="notes-speaker"><b>Говорит: Акылбаев Карим</b></p><p>А теперь проверим, что вы запомнили. На экране пять вопросов. Попробуйте ответить, а я буду открывать правильные ответы.</p><p>Первый: чем мгновенная скорость отличается от средней? (Пауза, затем открыть.) Мгновенная — это предел средней при дельта тэ, стремящемся к нулю, то есть производная пути.</p><p>Второй: какой смысл у второй производной? Это ускорение.</p><p>Третий: почему касательная горизонтальна в момент остановки? Потому что скорость равна нулю, а значит и тангенс угла наклона равен нулю.</p><p>Четвёртый: скорость выросла в три раза — во сколько раз вырастет тормозной путь? В девять раз, ведь путь зависит от квадрата скорости.</p><p>Пятый: что такое рывок? Это третья производная пути, и его ограничивают примерно двумя метрами в секунду в кубе.</p>
+  </aside>
+</section>
+
+<!-- ============ 12. Пример 1 ============ -->
+<section class="slide layout-split slide-ex" id="s-12" data-n="12" data-tag="Пример №1" aria-label="Слайд 12">
+  <header class="slide-head">
+    <p class="kicker reveal"><span class="k-num">//12</span><span class="k-label">Пример 1</span></p>
+    <h2 class="reveal">Мгновенная скорость</h2>
+  </header>
+  <div class="split">
+    <div class="col-text ex">
+      <div class="ex-given reveal">
+        <div class="ex-box"><p class="ex-cap">Дано</p><p>\(s(t)=3t^2+2t\) (м)</p></div>
+        <div class="ex-box ex-find"><p class="ex-cap">Найти</p><p>\(v(2)\), \(a\)</p></div>
+      </div>
+      <p class="ex-cap ex-sol-cap reveal">Решение</p>
+      <ol class="ex-steps">
+        <li data-step="1"><span class="es-n">1</span><span class="es-body">\(v(t)=s'(t)=6t+2\)</span></li>
+        <li data-step="2"><span class="es-n">2</span><span class="es-body">\(v(2)=6\cdot2+2=14\) м/с</span></li>
+        <li data-step="3"><span class="es-n">3</span><span class="es-body">\(a(t)=v'(t)=6\) м/с²</span></li>
+      </ol>
+      <div class="ex-answer" data-step="4"><p class="ex-cap">Ответ</p><p>14 м/с; 6 м/с² (движение равноускоренное)</p></div>
+    </div>
+    <div class="illu" id="illu-12"></div>
+  </div>
+  <aside class="notes">
+    <p class="notes-speaker"><b>Говорит: Акылбаев Карим</b></p><p>Теперь закрепим всё на пяти примерах. Первый — найти мгновенную скорость.</p><p>Дано: путь меняется по закону эс равно три тэ квадрат плюс два тэ. Нужно найти скорость в момент две секунды и ускорение.</p><p>Берём производную: вэ равно шесть тэ плюс два. Подставляем тэ равно два и получаем 14 метров в секунду.</p><p>Берём производную ещё раз: ускорение равно шести метрам в секунду за секунду. Оно постоянно, значит, движение равноускоренное.</p><p>Остальные примеры разберёт Талгат.</p>
+  </aside>
+</section>
+
+<!-- ============ 13. Пример 2 ============ -->
+<section class="slide layout-split slide-ex" id="s-13" data-n="13" data-tag="Пример №2" aria-label="Слайд 13">
+  <header class="slide-head">
+    <p class="kicker reveal"><span class="k-num">//13</span><span class="k-label">Пример 2</span></p>
+    <h2 class="reveal">Время и путь торможения</h2>
+  </header>
+  <div class="split">
+    <div class="col-text ex">
+      <div class="ex-given reveal">
+        <div class="ex-box"><p class="ex-cap">Дано</p><p><span class="ln">\(v_0=20\)&nbsp;м/с (72&nbsp;км/ч)</span><span class="ln">\(a=5\)&nbsp;м/с²</span><span class="ln">\(s(t)=20t-2{,}5t^2\)</span></p></div>
+        <div class="ex-box ex-find"><p class="ex-cap">Найти</p><p>\(t_{\text{ост}}\), \(S_{\text{торм}}\)</p></div>
+      </div>
+      <p class="ex-cap ex-sol-cap reveal">Решение</p>
+      <ol class="ex-steps">
+        <li data-step="1"><span class="es-n">1</span><span class="es-body">\(v(t)=s'(t)=20-5t\)</span></li>
+        <li data-step="2"><span class="es-n">2</span><span class="es-body">\(20-5t=0\Rightarrow t_{\text{ост}}=4\) с</span></li>
+        <li data-step="3"><span class="es-n">3</span><span class="es-body">\(S=s(4)=80-40=40\) м<span class="es-note">проверка: \(\frac{v_0^2}{2a}=\frac{400}{10}=40\) м</span></span></li>
+      </ol>
+      <div class="ex-answer" data-step="4"><p class="ex-cap">Ответ</p><p>4 с; 40 м</p><p class="ex-aside">При 144 км/ч тот же автомобиль тормозил бы 160 м — в 4 раза дальше</p></div>
+    </div>
+    <div class="illu" id="illu-13"></div>
+  </div>
+  <aside class="notes">
+    <p class="notes-speaker"><b>Говорит: Талгат</b></p><p>Спасибо, Карим. Пример второй — тот самый расчёт торможения, но в числах.</p><p>Машина едет со скоростью 20 метров в секунду, это 72 километра в час, и тормозит с замедлением 5 метров в секунду за секунду.</p><p>Скорость — производная пути: вэ равно двадцать минус пять тэ. Приравниваем к нулю: машина остановится через 4 секунды.</p><p>Подставляем 4 в функцию пути: 80 минус 40, получаем 40 метров. Формула вэ-ноль квадрат на два а даёт то же самое — значит, всё верно.</p><p>А если бы машина ехала 144 километра в час, тормозной путь был бы уже 160 метров.</p>
+  </aside>
+</section>
+
+<!-- ============ 14. Пример 3 ============ -->
+<section class="slide layout-split slide-ex" id="s-14" data-n="14" data-tag="Пример №3" aria-label="Слайд 14">
+  <header class="slide-head">
+    <p class="kicker reveal"><span class="k-num">//14</span><span class="k-label">Пример 3</span></p>
+    <h2 class="reveal">Автотехническая экспертиза</h2>
+  </header>
+  <div class="split">
+    <div class="col-text ex">
+      <div class="ex-given reveal">
+        <div class="ex-box"><p class="ex-cap">Дано</p><p><span class="ln">тормозной след \(S=50\)&nbsp;м</span><span class="ln">сухой асфальт: \(a=7\)&nbsp;м/с²</span></p></div>
+        <div class="ex-box ex-find"><p class="ex-cap">Найти</p><p>\(v_0\)</p></div>
+      </div>
+      <p class="ex-cap ex-sol-cap reveal">Решение</p>
+      <ol class="ex-steps">
+        <li data-step="1"><span class="es-n">1</span><span class="es-body">Из \(S=\dfrac{v_0^2}{2a}\) получаем \(v_0=\sqrt{2aS}\)</span></li>
+        <li data-step="2"><span class="es-n">2</span><span class="es-body">\(v_0=\sqrt{2\cdot7\cdot50}=\sqrt{700}\approx26{,}5\) м/с</span></li>
+      </ol>
+      <div class="ex-answer" data-step="3"><p class="ex-cap">Ответ</p><p>≈ 26,5 м/с ≈ 95 км/ч</p></div>
+    </div>
+    <div class="illu" id="illu-14"></div>
+  </div>
+  <aside class="notes">
+    <p class="notes-speaker"><b>Говорит: Талгат</b></p><p>Третий пример — работа эксперта после аварии.</p><p>На асфальте остался тормозной след длиной 50 метров. Асфальт сухой, замедление 7 метров в секунду за секунду. Нужно узнать, с какой скоростью ехала машина.</p><p>Из формулы тормозного пути выражаем скорость: вэ-ноль равно корню из два а эс. Подставляем: корень из 700, это примерно 26 с половиной метров в секунду.</p><p>Переводим в километры в час и получаем около 95. Так по одному следу на дороге можно доказать превышение скорости.</p>
+  </aside>
+</section>
+
+<!-- ============ 15. Пример 4 ============ -->
+<section class="slide layout-split slide-ex" id="s-15" data-n="15" data-tag="Пример №4" aria-label="Слайд 15">
+  <header class="slide-head">
+    <p class="kicker reveal"><span class="k-num">//15</span><span class="k-label">Пример 4</span></p>
+    <h2 class="reveal">Аэродинамика: мощность сопротивления</h2>
+  </header>
+  <div class="split">
+    <div class="col-text ex">
+      <div class="ex-given reveal">
+        <div class="ex-box"><p class="ex-cap">Дано</p><p><span class="ln">\(C_x=0{,}3\), \(\rho=1{,}2\)&nbsp;кг/м³</span><span class="ln">\(S=2{,}2\)&nbsp;м²</span><span class="ln">\(v=30\)&nbsp;м/с (108&nbsp;км/ч)</span></p></div>
+        <div class="ex-box ex-find"><p class="ex-cap">Найти</p><p>\(P_{\text{сопр}}\), \(\dfrac{dP}{dv}\)</p></div>
+      </div>
+      <p class="ex-cap ex-sol-cap reveal">Решение</p>
+      <ol class="ex-steps">
+        <li data-step="1"><span class="es-n">1</span><span class="es-body">\(P=\frac12C_x\rho Sv^3=0{,}396\cdot27000\approx10{,}7\) кВт</span></li>
+        <li data-step="2"><span class="es-n">2</span><span class="es-body">\(\frac{dP}{dv}=\frac32C_x\rho Sv^2=1{,}188\cdot900\approx1069\)&nbsp;Вт<span class="es-note">на каждый 1&nbsp;м/с скорости</span></span></li>
+        <li data-step="3"><span class="es-n">3</span><span class="es-body">При \(v=60\) м/с: \(P\approx85{,}5\) кВт — в 8 раз больше</span></li>
+      </ol>
+      <div class="ex-answer" data-step="4"><p class="ex-cap">Ответ</p><p>≈ 10,7 кВт; ≈ 1,07 кВт/(м/с); скорость ×2 → мощность ×8</p></div>
+    </div>
+    <div class="illu" id="illu-15"></div>
+  </div>
+  <aside class="notes">
+    <p class="notes-speaker"><b>Говорит: Талгат</b></p><p>Четвёртый пример — аэродинамика обычного легкового автомобиля.</p><p>Коэффициент сопротивления 0,3, плотность воздуха 1,2, площадь сечения 2,2 квадратного метра, скорость 30 метров в секунду, это 108 километров в час.</p><p>Мощность сопротивления получается около 10,7 киловатта.</p><p>Производная мощности по скорости — около одного киловатта на каждый метр в секунду. Это значит, что каждое прибавление скорости обходится всё дороже.</p><p>А если разогнаться вдвое, до 60 метров в секунду, мощность вырастет до 85 с половиной киловатт — ровно в восемь раз.</p>
+  </aside>
+</section>
+
+<!-- ============ 16. Пример 5 ============ -->
+<section class="slide layout-split slide-ex" id="s-16" data-n="16" data-tag="Пример №5" aria-label="Слайд 16">
+  <header class="slide-head">
+    <p class="kicker reveal"><span class="k-num">//16</span><span class="k-label">Пример 5</span></p>
+    <h2 class="reveal">Рывок и комфорт</h2>
+  </header>
+  <div class="split">
+    <div class="col-text ex">
+      <div class="ex-given reveal">
+        <div class="ex-box"><p class="ex-cap">Дано</p><p>\(s(t)=\dfrac{t^3}{3}+5t\) (м)</p></div>
+        <div class="ex-box ex-find"><p class="ex-cap">Найти</p><p>\(v(3)\), \(a(3)\), \(j\); оценить комфорт</p></div>
+      </div>
+      <p class="ex-cap ex-sol-cap reveal">Решение</p>
+      <ol class="ex-steps">
+        <li data-step="1"><span class="es-n">1</span><span class="es-body">\(v=t^2+5\Rightarrow v(3)=14\) м/с</span></li>
+        <li data-step="2"><span class="es-n">2</span><span class="es-body">\(a=2t\Rightarrow a(3)=6\) м/с²</span></li>
+        <li data-step="3"><span class="es-n">3</span><span class="es-body">\(j=a'=2\) м/с³</span></li>
+      </ol>
+      <div class="ex-answer" data-step="4"><p class="ex-cap">Ответ</p><p>14 м/с; 6 м/с²; \(j=2\) м/с³ — ровно на границе комфорта</p></div>
+    </div>
+    <div class="illu" id="illu-16"></div>
+  </div>
+  <aside class="notes">
+    <p class="notes-speaker"><b>Говорит: Талгат</b></p><p>И последний, пятый пример — про рывок и комфорт.</p><p>Путь задан формулой эс равно тэ в кубе на три плюс пять тэ. Найдём скорость, ускорение и рывок в момент 3 секунды.</p><p>Первая производная: вэ равно тэ квадрат плюс пять, в момент 3 секунды это 14 метров в секунду.</p><p>Вторая производная: ускорение равно два тэ, то есть 6 метров в секунду за секунду.</p><p>Третья производная: рывок равен двум метрам в секунду в кубе. Это ровно граница комфорта, так что пассажирам будет нормально, но резче уже нельзя.</p><p>На этом примеры закончены. Диёра, тебе слово.</p>
+  </aside>
+</section>
+
+<!-- ============ 17. Спасибо ============ -->
+<section class="slide slide-title slide-thanks" id="s-17" data-n="17" aria-label="Слайд 17">
+  <div class="title-text">
+    <p class="kicker reveal"><span class="k-num">//17</span><span class="k-label">Финал</span></p>
+    <h1 class="reveal">Спасибо<br>за внимание!</h1>
+    <p class="subtitle reveal"><span class="mark">Вопросы?</span></p>
+    <dl class="title-meta reveal">
+      <div><dt>Авторы</dt><dd class="authors-inline">Икрамхужаева Диёра · Шертаева Камилла · Жуман Дамир · Акылбаев Карим · Талгат</dd></div>
+      <div><dt>Тема</dt><dd>Производная в физике</dd></div>
+    </dl>
+  </div>
+
+  <svg class="title-graph" viewBox="0 0 900 640" width="900" height="640" aria-hidden="true">
+    <g class="tg-grid">
+      <path d="M210 100 V580 M360 100 V580 M510 100 V580 M660 100 V580 M810 100 V580 M60 460 H870 M60 340 H870 M60 220 H870 M60 100 H870"/>
+    </g>
+    <path class="tg-axis" d="M60 600 V40 M40 580 H870"/>
+    <path class="tg-axis" d="M53 54 L60 38 L67 54 M856 573 L872 580 L856 587"/>
+    <text class="tg-axname" x="80" y="52">s, м</text>
+    <text class="tg-axname" x="862" y="622" text-anchor="end">t, с</text>
+    <path class="tg-guide" d="M660 100 V580"/>
+    <path class="tg-curve" pathLength="1" d="M60 580 Q360 100 660 100"/>
+    <path class="tg-flat" pathLength="1" d="M540 100 H780"/>
+    <circle class="tg-dot tg-dot-2" cx="660" cy="100" r="10"/>
+    <text class="tg-note tg-note-2" x="660" y="72" text-anchor="middle">остановились вовремя</text>
+    <text class="tg-fn" x="250" y="252">s(t)</text>
+  </svg>
+
+  <aside class="notes">
+    <p class="notes-speaker"><b>Говорит: Икрамхужаева Диёра</b></p><p>Спасибо, Талгат. Итак, производная помогает описать движение в каждый момент времени: от того, где остановится машина, до того, насколько мягко она затормозит.</p><p>Спасибо за внимание! Мы с радостью ответим на ваши вопросы.</p>
+  </aside>
+</section>
+
+</main>
+</div>
+
+<!-- навигация (вне карточки) -->
+<button class="nav-arrow nav-prev" id="prev" type="button" aria-label="Предыдущий слайд">
+  <svg viewBox="0 0 24 24" width="28" height="28" aria-hidden="true"><path d="M15 5 L8 12 L15 19"/></svg>
+</button>
+<button class="nav-arrow nav-next" id="next" type="button" aria-label="Следующий слайд">
+  <svg viewBox="0 0 24 24" width="28" height="28" aria-hidden="true"><path d="M9 5 L16 12 L9 19"/></svg>
+</button>
+<div class="hud" id="hud">
+  <div class="hud-track">
+    <div class="progress" aria-hidden="true"><div class="progress-fill" id="progress"></div></div>
+    <nav class="ruler" id="ruler" aria-label="Слайды"></nav>
+  </div>
+  <span class="counter" id="counter" aria-live="polite">1 / 17</span>
+</div>
+
+<div class="notes-panel" id="notes-panel" hidden>
+  <div class="notes-head"><span id="notes-title">Заметки</span><span class="notes-hint">N — скрыть, Esc — закрыть</span></div>
+  <div class="notes-body" id="notes-body"></div>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,52 @@
+/* illustrations.css — стили иллюстраций (префикс .il-). Стиль: печатный учебник на бумаге (контракт v2). */
+.il-svg { display: block; width: 100%; height: 100%; overflow: hidden; }
+.il-t {
+  font-family: var(--font-ui, "Montserrat", "Segoe UI", "DejaVu Sans", Arial, sans-serif);
+  font-variant-numeric: tabular-nums;
+  white-space: pre;   /* пробелы не схлопываются: позиции символов для плашек-маркеров совпадают с текстом */
+}
+.il-head {
+  font-family: var(--font-head, "Oswald", "Arial Narrow", sans-serif);
+  letter-spacing: 0.08em;
+  font-weight: 500;
+}
+/* «подложка» цвета бумаги под подписями поверх линий */
+.il-halo {
+  paint-order: stroke fill;
+  stroke: var(--paper, #ECEAE5);
+  stroke-width: 6px;
+  stroke-linejoin: round;
+}
+.il-card-svg { fill: var(--white, #FFFFFF); stroke: var(--line, rgba(42, 42, 42, 0.18)); stroke-width: 1.5; }
+.il-card-svg--marker { fill: var(--marker, #CFCBC2); stroke: none; }
+
+/* слайд 3: цепочка карточек */
+.il-chain { position: absolute; inset: 0; }
+.il-card {
+  position: absolute; top: 0; box-sizing: border-box;
+  border-radius: 14px;
+  background: var(--white, #FFFFFF);
+  border: 1.5px solid var(--line, rgba(42, 42, 42, 0.18));
+  box-shadow: 0 1px 3px rgba(20, 25, 45, 0.08);
+  opacity: 0.4;
+  transition: opacity 0.5s ease, border-color 0.5s ease;
+  overflow: hidden;
+}
+.il-card .il-svg { position: absolute; inset: 0; }
+.il-card.is-on { opacity: 1; border-color: rgba(47, 59, 110, 0.45); }
+.il-card--muted { border-style: dashed; }
+.il-card--muted.is-on { opacity: 0.75; border-color: var(--line, rgba(42, 42, 42, 0.18)); }
+.il-arrow { position: absolute; top: 0; }
+.il-cap {
+  position: absolute; text-align: center;
+  font-family: var(--font-ui, "Montserrat", "Segoe UI", "DejaVu Sans", Arial, sans-serif);
+  font-size: 23px; line-height: 1.2; color: var(--muted, #6E6C67);
+}
+.il-cap i {
+  display: inline-block; width: 14px; height: 14px; border-radius: 2px;
+  margin-right: 10px; vertical-align: 1px;
+  background: var(--il-c, #2A2A2A);
+}
+@media (prefers-reduced-motion: reduce) {
+  .il-card { transition: none; }
+}
